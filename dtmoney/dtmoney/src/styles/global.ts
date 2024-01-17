@@ -59,4 +59,40 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+
+  //Estilação do modal 
+  .react-modal-overlay { 
+    /* para deixar transparente */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+   
+    align-items: center;
+    justify-content: center;
+  }
+
+  .react-modal-content { 
+
+    width: 100%;
+    max-width: 576px;
+    background: var(--background);
+    padding: 3rem;
+
+    /* esse Position serve para colocar o X para fechar o modal */
+    position: relative;
+    border-radius: 0.24rem;
+
+   input { 
+   display: block;
+ }
+  }
+
 `;
+

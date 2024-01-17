@@ -10,7 +10,7 @@ import Modal from "react-modal";
 
 // Definindo propriedades esperadas pelo componente Header
 interface HeaderProps {
-  onOpenModal: () => void; // Função para abrir o modal passada como propriedade
+  onOpenModal: () => void  // Função para abrir o modal passada como propriedade
 }
 
 //Levando a função onOpenModal vazia para ser passada pro header do app.tsx e ser atribuida um valor ; 
