@@ -91,8 +91,25 @@ export const GlobalStyle = createGlobalStyle`
 
    input { 
    display: block;
+
+   /* tirando a borda do input quando clica nele */
+  outline: none;
  }
   }
+
+
+
+/* Modificaçoes do fechamento do modal clicando no X */
+.react-modal-close { 
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 0.2s;
+  background-color: transparent;
+  border: none;
+}
 
 `;
 
