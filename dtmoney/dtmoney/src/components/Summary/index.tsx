@@ -31,6 +31,7 @@ export function Summary() {
         </header>
           <strong>R$16.141,00 </strong>
       </div>
+      
     </Container>
   );
 }

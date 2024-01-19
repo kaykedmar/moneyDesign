@@ -13,7 +13,7 @@ Modal.setAppElement("#root");
 
 // Definindo o componente principal da aplicação
 export function App() {
-
+  
   // Estado para controlar a abertura e fechamento do modal iniciando como false / Fechado 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
