@@ -13,6 +13,7 @@ interface HeaderProps {
   onOpenModal: () => void  // Função para abrir o modal passada como propriedade
 }
 
+
 //Levando a função onOpenModal vazia para ser passada pro header do app.tsx e ser atribuida um valor ; 
 export function Header({ onOpenModal }: HeaderProps) {
   return (
