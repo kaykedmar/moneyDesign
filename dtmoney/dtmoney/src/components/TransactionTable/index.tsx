@@ -1,16 +1,26 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // Adicione a importação do useState
 import { Container } from "./styles";
 import { api } from "../../services/api";
 
-export function TransactionsTable() {
-  useEffect(() => {
-    api.get("/transactions").then((response) => {
-      
-      // Mostrando os dados
-      console.log(response.data);
-    });
+interface Transaction {
+  id: number;
+  title: string;
+  category: string;
+  createdAt: string; 
+  amount: number;
+  type: string;
+}
 
-    // [] Significa que vai buscar API apenas uma vez
+export function TransactionsTable() {
+  // Mostrando em tela;
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    api.get("transactions").then((response) => {
+      // Consertando o bug
+      setTransactions(response.data.transactions);
+    });
+    // []  buscar API apenas uma vez
   }, []);
 
   return (
@@ -26,33 +36,19 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>Desenvolvimento de website</td>
-            <td className="deposit">R$12.000,00</td>
-            <td>Desenvolvimento</td>
-            <td>20/02/2021</td>
-          </tr>
-          
-          <tr>
-            <td>Hamburguer</td>
-            <td className="withdraw">-R$59,00</td>
-            <td>Alimentação</td>
-            <td>10/04/2021</td>
-          </tr>
-          <tr>
-            <td>Aluguel do apartamento</td>
-            <td className="withdraw">-R$1.200,00</td>
-            <td>Casa</td>
-            <td>27/03/2021</td>
-          </tr>
-          <tr>
-            <td>Computador</td>
-            <td className="deposit">R$5.400,00</td>
-            <td>Venda</td>
-            <td>15/03/2021</td>
-          </tr>
+          {transactions.map((transaction: Transaction) => {
+            return (
+              <tr key={transaction.id}>
+                <td>{transaction.title}</td>
+                <td className={transaction.type}>{transaction.amount}</td>
+                <td>{transaction.category}</td>
+                <td>{transaction.createdAt}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Container>
   );
 }
+
