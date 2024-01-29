@@ -4,6 +4,7 @@ import { Dashboard } from "./components/Dashboard";
 import { Header } from "./components/Header";
 import { GlobalStyle } from "./styles/global";
 import { NewTransactionModal } from "./components/NewTransactionModal";
+import { TransactionProvider } from "./TransactionsContext";
 
 // Importando a biblioteca react-modal
 import Modal from "react-modal";
@@ -13,8 +14,7 @@ Modal.setAppElement("#root");
 
 // Definindo o componente principal da aplicação
 export function App() {
-  
-  // Estado para controlar a abertura e fechamento do modal iniciando como false / Fechado 
+  // Estado para controlar a abertura e fechamento do modal iniciando como false / Fechado
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Função para abrir o modal
@@ -28,27 +28,24 @@ export function App() {
   }
 
   return (
-    
-   // Este é um Fragment do React. É usado para agrupar elementos sem adicionar um nó extra ao DOM 
-    <>
+    // Contexto para compartilhar dados relacionados a transações na aplicação.
+    <TransactionProvider>
       {/* onOpenModal chegou aqui vazia, e recebeu handleModalOpen como valor */}
       <Header onOpenModal={handleModalOpen} />
-      
+
       {/* Componente Dashboard */}
       <Dashboard />
 
       {/* Componente Modal para exibir informações adicionais */}
       <NewTransactionModal
-      // isOpen e um estado para abrir o modal
+        // isOpen e um estado para abrir o modal
         isOpen={isModalOpen}
-
-        // onRequestClose e um tipo de estado para fechar o modal  
+        // onRequestClose e um tipo de estado para fechar o modal
         onRequestClose={handleModalClose}
       />
 
-
       {/* Estilos globais da aplicação */}
       <GlobalStyle />
-    </>
+    </TransactionProvider>
   );
 }

@@ -1,28 +1,12 @@
-import React, { useEffect, useState } from "react"; // Adicione a importação do useState
+import React, { useContext } from "react"; // Adicione a importação do useState
 import { Container } from "./styles";
-import { api } from "../../services/api";
-
-interface Transaction {
-  id: number;
-  title: string;
-  category: string;
-  createdAt: string; 
-  amount: number;
-  type: string;
-}
+// Importe o tipo Transaction do arquivo onde ele está definido
+import { TransactionsContext } from "../../TransactionsContext";
 
 export function TransactionsTable() {
-  // Mostrando em tela;
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const transactions = useContext(TransactionsContext);
 
-  useEffect(() => {
-    api.get("transactions").then((response) => {
-      // Consertando o bug
-      setTransactions(response.data.transactions);
-    });
-    // []  buscar API apenas uma vez
-  }, []);
-
+ 
   return (
     <Container>
       <table>
@@ -36,13 +20,26 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          {transactions.map((transaction: Transaction) => {
+          {transactions.map((transaction) => {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
-                <td className={transaction.type}>{transaction.amount}</td>
+                <td className={transaction.type}>
+                  {/* Transformando a moeda em Real */}
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(transaction.amount)}
+                </td>
                 <td>{transaction.category}</td>
-                <td>{transaction.createdAt}</td>
+                {/* Transformando a data em Data BR*/}
+                <td>
+                  {" "}
+                  {new Intl.DateTimeFormat("pt-BR").format(
+                    new Date(transaction.createdAt)
+                  )}
+                </td>
+                ,
               </tr>
             );
           })}
@@ -51,4 +48,3 @@ export function TransactionsTable() {
     </Container>
   );
 }
-
